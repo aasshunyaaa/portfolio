@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+	
+	
+<div id="contents" class="inner">
+
+<div id="main">
+
+<article>
+
+<h2>サービス名</h2>
+<p>800px以下の画面幅で見た場合、サブブロックが非表示になります。その他のページでも非表示にしたい場合、html側の&lt;body&gt;タグを&lt;body class=&quot;s-n&quot;&gt;として下さい。もしclass指定が２つ以上ある場合は半角スペースで区切って入力すればOKです。</p>
+
+<figure>
+<img src="{% static 'images/sample1_big.jpg' %}" alt="">
+</figure>
+
+</article>
+
+<p><a href="javascript:history.back()">&lt;&lt; 前のページに戻る</a></p>
+
+</div>
+
+{% endblock body %}
+
