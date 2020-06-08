@@ -1,4 +1,17 @@
 from django.shortcuts import render
 
-def signup(request):
-    return render(request, 'system/login.html')
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import (LoginView, LogoutView)
+from .forms import LoginForm
+
+class Login(LoginView):
+    form_class = LoginForm
+    template_name = 'system/login.html'
+
+
+class Logout(LoginRequiredMixin, LogoutView):
+    template_name = 'system/login.html'
+
+
+def index(request):
+    return render(request, 'system/index.html')
