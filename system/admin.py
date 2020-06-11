@@ -1,13 +1,10 @@
 from django.contrib import admin
-from site2.models import News
+from site2.models import News, Category
 
-from django_summernote.admin import SummernoteModelAdmin
+# from django_summernote.admin import SummernoteModelAdmin
 
-class NewsAdmin(SummernoteModelAdmin):
-    summernote_fields = '__all__'
+# class NewsAdmin(SummernoteModelAdmin):
+    # summernote_fields = '__all__'
 
-admin.site.register(News, NewsAdmin)
-
-
-# Register your models here.
-
+admin.site.register(News)
+admin.site.register(Category)

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'site2.apps.Site2Config',
     'system.apps.SystemConfig',
     'django_summernote',
+    'mdeditor',
+
 ]
 
 MIDDLEWARE = [
@@ -129,4 +131,14 @@ LOGOUT_REDIRECT_URL='system:login'
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+MDEDITOR_CONFIGS = {
+    'default': {
+        'language': 'en',
+        
+    }
+    
+}

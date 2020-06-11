@@ -1,7 +1,35 @@
-<form action="{% url 'system:news' %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">投稿</button>
-    <p>これでいいのですか？</p>
+{% extends 'base_system.html' %}
+{% load static %}
 
-</form>
+		{% block body %}
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+						<div class="panel-heading">
+                            <body>
+                                <form action="{% url 'system:news' %}" method="POST">
+                                {% csrf_token %}
+                                {{ form.media }}
+                                {{ form.as_p }}
+                                <p><input type="submit" value="投稿"></p>
+                                </form>
+                            </body>
+						</div>
+					</div>
+					<!-- END OVERVIEW -->
+					<div class="row">
+						<div class="col-md-6">
+						
+
+		<div class="clearfix"></div>
+		<footer>
+			<div class="container-fluid">
+				<p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All Rights Reserved.</p>
+			</div>
+		</footer>
+	</div>
+{% endblock body %}
