@@ -19,5 +19,6 @@ class NewsForm(forms.ModelForm):
         model = News
         fields = ('title', 'category', 'content',)
         widgets = {
-                'content': SummernoteWidget(),
+            'category' :forms.CheckboxSelectMultiple,
+            
         }

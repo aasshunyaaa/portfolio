@@ -187,6 +187,9 @@ td,
 th {
   padding: 0;
 }
+table tr td:nth-child(1) {
+  width:50px;
+}
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *,
@@ -2316,6 +2319,9 @@ th {
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
   border-bottom-width: 2px;
+}
+.table-bordered tr td:nth-child(1) {
+  width:50px;
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #f9f9f9;

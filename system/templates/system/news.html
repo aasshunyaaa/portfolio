@@ -7,29 +7,55 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<!-- OVERVIEW -->
-					<div class="panel panel-headline">
-						<div class="panel-heading">
-                            <body>
-                                <form action="{% url 'system:news' %}" method="POST">
-                                {% csrf_token %}
-                                {{ form.media }}
-                                {{ form.as_p }}
-                                <p><input type="submit" value="投稿"></p>
-                                </form>
-                            </body>
-						</div>
-					</div>
-					<!-- END OVERVIEW -->
-					<div class="row">
-						<div class="col-md-6">
-						
-
-		<div class="clearfix"></div>
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All Rights Reserved.</p>
-			</div>
-		</footer>
+					
+								<!-- TABLE STRIPED -->
+								<div class="panel">
+									<div class="panel-heading" align="center">
+										<h3 class="panel-title">記事一覧</h3>
+									</div>
+									<button style="margin-left:30px" type="button" onclick="location.href='{% url 'system:news_add' %}'" class="btn btn-primary">新規作成</button>
+									<div class="panel-body">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>タイトル</th>
+													<th>カテゴリー</th>
+													<th>記事内容</th>
+													<th>削除・編集</th>
+													<th>公開/非公開</th>
+													<th>更新日</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for news in news %}
+												<tr>
+													<td>{{ news.id }}</td>
+													<td>{{ news.title }}</td>
+													<td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
+													<td>{{ news.content|truncatechars:10 }}</td>
+													<td>
+														<button type="button" onclick="location.href='{% url 'system:news_edit' news.id %}'" class="btn btn-success">編集</button>
+														<button type="button" onclick="location.href='{% url 'system:news_delete' news.id %}'" class="btn btn-danger">削除</button>
+													</td>
+													<td>
+														<label class="fancy-radio">
+															<input name="publicchoice" value="public" type="radio">
+															<span><i></i>公開</span>
+														</label>
+														<label class="fancy-radio">
+															<input name="publicchoice" value="private" type="radio">
+															<span><i></i>非公開</span>
+														</label>	
+													</td>
+													<td>{{ news.data }}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END TABLE STRIPED -->
+		
 	</div>
 {% endblock body %}
