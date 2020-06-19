@@ -28,7 +28,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												{% for news in news %}
+												{% for news in news_list %}
 												<tr>
 													<td>{{ news.id }}</td>
 													<td>{{ news.title }}</td>
@@ -53,6 +53,8 @@
 												{% endfor %}
 											</tbody>
 										</table>
+											{% include 'includes/paginator.html' %}
+
 									</div>
 								</div>
 								<!-- END TABLE STRIPED -->
