@@ -7,9 +7,37 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					
+				
 								<!-- TABLE STRIPED -->
 								<div class="panel">
+										<form method="POST" action="{% url 'system:news' %}">
+											{{ formset.management_form }}
+											{% for form in formset %}
+												{{ form }}<br>
+											{% endfor %}
+											{% csrf_token %}
+											<button class="btn btn-primary" type="submit">検索</button>
+										</form>
+										
+											<!-- <div class="input-group">
+												<input class="form-control" value="" type="text" name="key_title" placeholder="タイトルを検索">
+												<br>
+												<select class="form-control" placeholder="カテゴリで検索">
+													<option value="" name="key_category">カテゴリーを選択</option>
+													{% for cat in categorys  %}
+													<option value="{{ cat }}" name="key_category">{{ cat }}</option>
+													{% endfor %}
+												</select>
+												<label class="fancy-radio">
+													<input name="gender" value="male" type="radio">
+													<span><i></i>Male</span>
+												</label>
+												<label class="fancy-radio">
+													<input name="gender" value="female" type="radio">
+													<span><i></i>Female</span>
+												</label>
+											</div> -->
+									
 									<div class="panel-heading" align="center">
 										<h3 class="panel-title">記事一覧</h3>
 									</div>

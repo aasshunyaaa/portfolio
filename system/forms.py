@@ -2,6 +2,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from site2.models import News
 from django import forms
 from django_summernote.widgets import SummernoteWidget
+from site2.models import Category, PUBLIC_CHOICES, News
+from site2 import models
 
 
 
@@ -22,3 +24,15 @@ class NewsForm(forms.ModelForm):
             'category' :forms.CheckboxSelectMultiple,
             
         }
+
+PUBLIC_CHOICES = PUBLIC_CHOICES + [('', '選択してください')]
+class NewsSearchForm(forms.Form):
+    title = forms.CharField(max_length='100', required=False)
+    category = forms.ModelChoiceField(models.Category.objects, label='カテゴリー', required=True)
+    public = forms.ChoiceField(label='公開/非公開', choices=PUBLIC_CHOICES, required=False)
+
+NewsSearchFormSet = forms.formset_factory(NewsSearchForm, extra=1)
+
+
+    
+

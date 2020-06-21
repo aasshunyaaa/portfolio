@@ -4,8 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (LoginView, LogoutView)
 from .forms import LoginForm, NewsForm
 from django.contrib.auth.decorators import login_required
-from site2.models import News
-
+from site2.models import News, Category
+from django.contrib import messages
+from django.db.models import Q
+from . forms import NewsSearchFormSet
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 class Login(LoginView):
@@ -39,8 +41,49 @@ def paginator_query(request, queryset, count):
 @login_required
 def news(request):
     news = News.objects.all()
+    categorys = Category.objects.all()
+    formset = NewsSearchFormSet(request.POST or None)
+    if request.method == 'POST':
+    # 検索機能の処理関数
+        formset.is_valid()
+
+        queries = []
+
+        for form in formset:
+            q_kwargs = {}
+            title = form.cleaned_data.get('title')
+            if title:
+                q_kwargs['title'] = title
+            
+            category = form.cleaned_data.get('category')
+            if category:
+                q_kwargs['category__gte'] = category
+
+            public = form.cleaned_data.get('public')
+            if public:
+                q_kwargs['public'] = public
+
+            if q_kwargs:
+                q = Q(**q_kwargs)
+                queries.append(q)
+
+        if queries:
+            base_query = queries.pop()
+            for query in queries:
+                base_query |= query
+            news = news.filter(base_query)
+
     news_list = paginator_query(request, news, 3)
-    return render(request, 'system/news.html', {'news': news_list.object_list, 'news_list': news_list,})
+    params = {
+        'news': news_list.object_list,
+        'news_list': news_list,
+        'categorys': categorys,
+        'formset': formset,
+    }
+    return render(request, 'system/news.html', params)
+
+
+
 
 # 新着情報の新規作成
 @login_required
