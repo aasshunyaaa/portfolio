@@ -59,9 +59,9 @@ def news(request):
             if category:
                 q_kwargs['category__gte'] = category
 
-            public = form.cleaned_data.get('public')
-            if public:
-                q_kwargs['public'] = public
+            public_status = form.cleaned_data.get('public_status')
+            if public_status:
+                q_kwargs['public_status'] = public_status
 
             if q_kwargs:
                 q = Q(**q_kwargs)
