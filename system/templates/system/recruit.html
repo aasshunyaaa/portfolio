@@ -1,0 +1,77 @@
+{% extends 'base_system.html' %}
+{% load static %}
+
+{% block body %}
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="container-fluid">
+
+            <!-- TABLE STRIPED -->
+            <form method="get" action="">
+                <input name='get_title' placeholder="タイトルを検索" value="{{ request.GET.get_title }}" type="text">
+                    <button class="btn btn-primary" type="submit">検索</button>
+            </form>
+            <div class="panel">
+
+                <div class="panel-heading" align="center">
+                    <h3 class="panel-title">採用情報一覧</h3>
+                </div>
+                <button style="margin-left:30px" type="button" onclick="location.href='{% url 'system:news_add' %}'" class="btn btn-primary">新規作成</button>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>タイトル</th>
+                                <th>記事内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for news in news_list %}
+                            <tr>
+                                <td>{{ news.id }}</td>
+                                <td>{{ news.title }}</td>
+                                <td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
+                                <td>{{ news.content|truncatechars:10 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                        {% include 'includes/paginator.html' %}
+
+                </div>
+            </div>
+            <div class="panel">
+
+                <div class="panel-heading" align="center">
+                    <h3 class="panel-title">採用情報一覧</h3>
+                </div>
+                <button style="margin-left:30px" type="button" onclick="location.href='{% url 'system:news_add' %}'" class="btn btn-primary">新規作成</button>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>タイトル</th>
+                                <th>記事内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for news in news_list %}
+                            <tr>
+                                <td>{{ news.id }}</td>
+                                <td>{{ news.title }}</td>
+                                <td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
+                                <td>{{ news.content|truncatechars:10 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                        {% include 'includes/paginator.html' %}
+
+                </div>
+            </div>
+            <!-- END TABLE STRIPED -->
+{% endblock body %}

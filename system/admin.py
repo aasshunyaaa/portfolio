@@ -1,5 +1,5 @@
 from django.contrib import admin
-from site2.models import News, Category
+from site2.models import News, Category, RecruitLong, RecruitShort
 
 # from django_summernote.admin import SummernoteModelAdmin
 
@@ -8,3 +8,5 @@ from site2.models import News, Category
 
 admin.site.register(News)
 admin.site.register(Category)
+admin.site.register(RecruitLong)
+admin.site.register(RecruitShort)

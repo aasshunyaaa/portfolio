@@ -7,85 +7,62 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-				
-								<!-- TABLE STRIPED -->
-								<div class="panel">
-										<form method="POST" action="{% url 'system:news' %}">
-											{{ formset.management_form }}
-											{% for form in formset %}
-												{{ form }}<br>
-											{% endfor %}
-											{% csrf_token %}
-											<button class="btn btn-primary" type="submit">検索</button>
-										</form>
-										
-											<!-- <div class="input-group">
-												<input class="form-control" value="" type="text" name="key_title" placeholder="タイトルを検索">
-												<br>
-												<select class="form-control" placeholder="カテゴリで検索">
-													<option value="" name="key_category">カテゴリーを選択</option>
-													{% for cat in categorys  %}
-													<option value="{{ cat }}" name="key_category">{{ cat }}</option>
-													{% endfor %}
-												</select>
-												<label class="fancy-radio">
-													<input name="gender" value="male" type="radio">
-													<span><i></i>Male</span>
-												</label>
-												<label class="fancy-radio">
-													<input name="gender" value="female" type="radio">
-													<span><i></i>Female</span>
-												</label>
-											</div> -->
-									
-									<div class="panel-heading" align="center">
-										<h3 class="panel-title">記事一覧</h3>
-									</div>
-									<button style="margin-left:30px" type="button" onclick="location.href='{% url 'system:news_add' %}'" class="btn btn-primary">新規作成</button>
-									<div class="panel-body">
-										<table class="table table-striped">
-											<thead>
-												<tr>
-													<th>ID</th>
-													<th>タイトル</th>
-													<th>カテゴリー</th>
-													<th>記事内容</th>
-													<th>削除・編集</th>
-													<th>公開/非公開</th>
-													<th>更新日</th>
-												</tr>
-											</thead>
-											<tbody>
-												{% for news in news_list %}
-												<tr>
-													<td>{{ news.id }}</td>
-													<td>{{ news.title }}</td>
-													<td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
-													<td>{{ news.content|truncatechars:10 }}</td>
-													<td>
-														<button type="button" onclick="location.href='{% url 'system:news_edit' news.id %}'" class="btn btn-success">編集</button>
-														<button type="button" onclick="location.href='{% url 'system:news_delete' news.id %}'" class="btn btn-danger">削除</button>
-													</td>
-													<td>
-														<label class="fancy-radio">
-															<input name="publicchoice" value="public" type="radio">
-															<span><i></i>公開</span>
-														</label>
-														<label class="fancy-radio">
-															<input name="publicchoice" value="private" type="radio">
-															<span><i></i>非公開</span>
-														</label>	
-													</td>
-													<td>{{ news.data }}</td>
-												</tr>
-												{% endfor %}
-											</tbody>
-										</table>
-											{% include 'includes/paginator.html' %}
 
-									</div>
-								</div>
-								<!-- END TABLE STRIPED -->
+					<!-- TABLE STRIPED -->
+					<form method="get" action="">
+						<input name='get_title' placeholder="タイトルを検索" value="{{ request.GET.get_title }}" type="text">
+							<button class="btn btn-primary" type="submit">検索</button>
+					</form>
+					<div class="panel">
+
+						<div class="panel-heading" align="center">
+							<h3 class="panel-title">記事一覧</h3>
+						</div>
+						<button style="margin-left:30px" type="button" onclick="location.href='{% url 'system:news_add' %}'" class="btn btn-primary">新規作成</button>
+						<div class="panel-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>タイトル</th>
+										<th>カテゴリー</th>
+										<th>記事内容</th>
+										<th>削除・編集</th>
+										<th>公開/非公開</th>
+										<th>更新日</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for news in news_list %}
+									<tr>
+										<td>{{ news.id }}</td>
+										<td>{{ news.title }}</td>
+										<td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
+										<td>{{ news.content|truncatechars:10 }}</td>
+										<td>
+											<button type="button" onclick="location.href='{% url 'system:news_edit' news.id %}'" class="btn btn-success">編集</button>
+											<button type="button" onclick="location.href='{% url 'system:news_delete' news.id %}'" class="btn btn-danger">削除</button>
+										</td>
+										<td>
+											<label class="fancy-radio">
+												<input name="publicchoice" value="public" type="radio">
+												<span><i></i>公開</span>
+											</label>
+											<label class="fancy-radio">
+												<input name="publicchoice" value="private" type="radio">
+												<span><i></i>非公開</span>
+											</label>	
+										</td>
+										<td>{{ news.data }}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+								{% include 'includes/paginator.html' %}
+
+						</div>
+					</div>
+					
+					<!-- END TABLE STRIPED -->
 		
-	</div>
 {% endblock body %}

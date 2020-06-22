@@ -25,3 +25,19 @@ class News(models.Model):
         return self.title
 
 
+class RecruitLong(models.Model):
+    title = models.CharField('タイトル', max_length=100)
+    discription = models.TextField('説明', max_length=500)
+
+    def __str__(self):
+        return self.title
+
+
+class RecruitShort(models.Model):
+    title = models.CharField('タイトル', max_length=100)
+    discription = models.TextField('説明', max_length=500)
+
+    def __str__(self):
+        return self.title
+        
+    

@@ -31,7 +31,7 @@ class NewsSearchForm(forms.Form):
     category = forms.ModelChoiceField(models.Category.objects, label='カテゴリー', required=True)
     public = forms.ChoiceField(label='公開/非公開', choices=PUBLIC_CHOICES, required=False)
 
-NewsSearchFormSet = forms.formset_factory(NewsSearchForm, extra=1)
+# NewsSearchFormSet = forms.formset_factory(form=NewsSearchForm, extra=1)
 
 
     
