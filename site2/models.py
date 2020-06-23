@@ -25,19 +25,15 @@ class News(models.Model):
         return self.title
 
 
-class RecruitLong(models.Model):
+class Recruit(models.Model):
     title = models.CharField('タイトル', max_length=100)
-    discription = models.TextField('説明', max_length=500)
+    discription = MDTextField(max_length=500, verbose_name='記事内容')
+    public_status = models.BooleanField('チェックで公開')
+    long_short = models.BooleanField('チェックで短期', default=False)
 
     def __str__(self):
         return self.title
 
 
-class RecruitShort(models.Model):
-    title = models.CharField('タイトル', max_length=100)
-    discription = models.TextField('説明', max_length=500)
 
-    def __str__(self):
-        return self.title
-        
     

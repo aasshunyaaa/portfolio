@@ -2,9 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import (LoginView, LogoutView)
-from .forms import LoginForm, NewsForm
+from .forms import LoginForm, NewsForm, RecruitForm
 from django.contrib.auth.decorators import login_required
-from site2.models import News, Category, RecruitLong, RecruitShort
+from site2.models import News, Category, Recruit
 from django.contrib import messages
 from django.db.models import Q
 # from . forms import NewsSearchFormSet
@@ -88,6 +88,7 @@ def news_edit(request, pk):
 
 
 # 新着情報の削除
+@login_required
 def news_delete(request, pk):
     obj = News.objects.get(id=pk)
     if (request.method == 'POST'):
@@ -101,5 +102,68 @@ def news_delete(request, pk):
     return render(request, 'system/news_delete.html', params)
 
 
+
+# 採用ページ一覧
+@login_required
 def recruit(request):
-    return render(request, 'system/recruit.html')
+    obj = Recruit.objects.all()
+    # 検索機能の関数
+    q_title = request.GET.get('get_title')
+    if q_title:
+        obj = Recruit.objects.filter(Q(title__icontains=q_title))
+    
+    recruit_list = paginator_query(request, obj, 5)
+    params = {
+        'obj': recruit_list.object_list,
+        'recruit_list' :recruit_list,
+    }
+
+    return render(request, 'system/recruit.html', params)
+
+# 採用ページ新規作成
+@login_required
+def recruit_add(request):
+    if request.method == 'POST':
+        obj = Recruit()
+        form = RecruitForm(request.POST, instance=obj)
+        if form.is_valid:
+            form.save()
+            return redirect('system:recruit')
+    else:
+        form = RecruitForm()
+    return render(request, 'system/recruit_add.html',{'form': form})
+
+
+# 採用ページ編集/削除
+@login_required
+def recruit_edit(request, pk):
+    obj = Recruit.objects.get(id=pk)
+    if request.POST.get('edit'):
+        form = RecruitForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect(to='/system/recruit')
+        params = {
+            'form': form,
+            'id': pk,
+        }
+
+    elif request.POST.get('delete'):
+        form = RecruitForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.delete()
+            return redirect(to='/system/recruit')
+        params = {
+            'form': form,
+            'id': pk,
+        }
+    else:
+        form = RecruitForm(request.POST, instance=obj)
+        params = {
+            'form': form
+        }
+
+    return render(request, 'system/recruit_edit.html', params)
+
+
+

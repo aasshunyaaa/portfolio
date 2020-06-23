@@ -18,7 +18,7 @@
                 <div class="panel-heading" align="center">
                     <h3 class="panel-title">採用情報一覧</h3>
                 </div>
-                <button style="margin-left:30px" type="button" onclick="location.href='{% url 'system:news_add' %}'" class="btn btn-primary">新規作成</button>
+                <button style="margin-left:30px" type="button" onclick="location.href='{% url 'system:recruit_add' %}'" class="btn btn-primary">新規作成</button>
                 <div class="panel-body">
                     <table class="table table-striped">
                         <thead>
@@ -26,45 +26,34 @@
                                 <th>ID</th>
                                 <th>タイトル</th>
                                 <th>記事内容</th>
+                                <th>公開設定</th>
+                                <th>長期/短期</th>
+                                <th>編集/削除</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for news in news_list %}
+                            {% for recruit in recruit_list %}
                             <tr>
-                                <td>{{ news.id }}</td>
-                                <td>{{ news.title }}</td>
-                                <td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
-                                <td>{{ news.content|truncatechars:10 }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                        {% include 'includes/paginator.html' %}
-
-                </div>
-            </div>
-            <div class="panel">
-
-                <div class="panel-heading" align="center">
-                    <h3 class="panel-title">採用情報一覧</h3>
-                </div>
-                <button style="margin-left:30px" type="button" onclick="location.href='{% url 'system:news_add' %}'" class="btn btn-primary">新規作成</button>
-                <div class="panel-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>タイトル</th>
-                                <th>記事内容</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for news in news_list %}
-                            <tr>
-                                <td>{{ news.id }}</td>
-                                <td>{{ news.title }}</td>
-                                <td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
-                                <td>{{ news.content|truncatechars:10 }}</td>
+                                <td>{{ recruit.id }}</td>
+                                <td>{{ recruit.title }}</td>
+                                <td>{{ recruit.discription|truncatechars:10 }}</td>
+                                {% if recruit.public_status %}
+                                    <td>公開</td>
+                                {% else %}
+                                    <td>非公開</td>
+                                {% endif %}
+                                {% if recruit.long_short %}
+                                    <td>短期募集</td>
+                                {% else %}
+                                    <td>長期募集</td>
+                                {% endif %}
+                                <td>
+                                    <form action="{% url 'system:recruit_edit' recruit.id %}" method='post'>
+                                        {% csrf_token %}
+                                        <button type="submit" value='edit' name='edit' class="btn btn-success">編集</button>
+                                        <button type="submit" value='delete' name='delete' class="btn btn-danger">削除</button>
+                                    </form>
+								</td>
                             </tr>
                             {% endfor %}
                         </tbody>

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from site2.models import News
 from django import forms
 from django_summernote.widgets import SummernoteWidget
-from site2.models import Category, PUBLIC_CHOICES, News
+from site2.models import Category, PUBLIC_CHOICES, News, Recruit
 from site2 import models
 
 
@@ -31,7 +31,13 @@ class NewsSearchForm(forms.Form):
     category = forms.ModelChoiceField(models.Category.objects, label='カテゴリー', required=True)
     public = forms.ChoiceField(label='公開/非公開', choices=PUBLIC_CHOICES, required=False)
 
-# NewsSearchFormSet = forms.formset_factory(form=NewsSearchForm, extra=1)
+
+class RecruitForm(forms.ModelForm):
+    class Meta:
+        model = Recruit
+        fields = ('title', 'discription', 'public_status', 'long_short')
+
+
 
 
     

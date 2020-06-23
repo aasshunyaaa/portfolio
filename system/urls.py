@@ -14,4 +14,6 @@ urlpatterns = [
     path('system/news/<int:pk>', views.news_delete, name='news_delete'),
     # 以下採用ページ
     path('system/recruit/', views.recruit, name='recruit'),
+    path('system/recruit/add/', views.recruit_add, name='recruit_add'),
+    path('system/recruit/<int:pk>', views.recruit_edit, name='recruit_edit'),
 ]

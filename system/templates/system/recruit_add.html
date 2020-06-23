@@ -1,0 +1,31 @@
+{% extends 'base_system.html' %}
+{% load static %}
+
+		{% block body %}
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+						<div class="panel-heading">
+							<body>
+									<form action="{% url 'system:recruit_add' %}" method="POST">
+									{% csrf_token %}
+									<div class="panel-body">
+										<table class="table table-bordered">
+											<tbody>
+												{{ form.media }}
+												{{ form.as_table }}
+											</tbody>
+										</table>
+										<p><input type="submit" value="投稿" class="btn btn-primary"></p>
+									</div>
+									</form>
+							</body>
+						</div>
+					</div>
+			
+	</div>
+{% endblock body %}
