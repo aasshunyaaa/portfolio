@@ -48,11 +48,8 @@
                                     <td>長期募集</td>
                                 {% endif %}
                                 <td>
-                                    <form action="{% url 'system:recruit_edit' recruit.id %}" method='post'>
-                                        {% csrf_token %}
-                                        <button type="submit" value='edit' name='edit' class="btn btn-success">編集</button>
-                                        <button type="submit" value='delete' name='delete' class="btn btn-danger">削除</button>
-                                    </form>
+                                    <button type="submit" onclick="location.href='{% url 'system:recruit_edit' recruit.id %}'" class="btn btn-success">編集</button>
+                                    <button type="submit" onclick="location.href='{% url 'system:recruit_delete' recruit.id %}'" class="btn btn-danger">削除</button>
 								</td>
                             </tr>
                             {% endfor %}

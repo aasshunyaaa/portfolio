@@ -1,0 +1,43 @@
+{% extends 'base_system.html' %}
+{% load static %}
+
+		{% block body %}
+		<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					
+          <!-- TABLE STRIPED -->
+          <div class="panel">
+            <div class="panel-heading" align="center">
+              <h3 class="panel-title">以下の記事を削除します</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table table-striped">
+                <tr><th>ID</th><td>{{ obj.id }}</td></tr>
+                <tr><th>タイトル</th><td>{{ obj.title }}</td></tr>
+                <tr><th>記事内容</th><td>{{ obj.discription }}</td></tr>
+                {% if obj.public_status %}
+                    <tr><th>公開設定</th><td>公開</td></tr>
+                {% else %}
+                    <tr><th>公開設定</th><td>非公開</td></tr>
+                {% endif %}
+                {% if obj.long_short %}
+                    <tr><th>短期募集・長期募集</th><td>短期募集</td></tr>
+                {% else %}
+                    <tr><th>短期募集・長期募集</th><td>長期募集</td></tr>
+                {% endif %}
+              </table>
+              <form action="{% url 'system:news_delete' id %}" method="post">
+              {% csrf_token %}
+                <button style="margin-left:30px" type="submit"  class="btn btn-danger">削除</button>
+              </form>
+            </div>
+            
+          </div>
+          
+          <!-- END TABLE STRIPED -->
+		
+	</div>
+{% endblock body %}

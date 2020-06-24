@@ -11,7 +11,7 @@
 					<div class="panel panel-headline">
 						<div class="panel-heading">
 							<body>
-									<form action="{% url 'system:recruit' %}" method="POST">
+									<form action="{% url 'system:recruit_edit' id %}" method="POST">
 									{% csrf_token %}
 									<div class="panel-body">
 										<table class="table table-bordered">

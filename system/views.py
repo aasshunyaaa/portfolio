@@ -134,36 +134,34 @@ def recruit_add(request):
     return render(request, 'system/recruit_add.html',{'form': form})
 
 
-# 採用ページ編集/削除
+# 採用ページ編集
 @login_required
 def recruit_edit(request, pk):
     obj = Recruit.objects.get(id=pk)
-    if request.POST.get('edit'):
+    if (request.method == 'POST'):
         form = RecruitForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
             return redirect(to='/system/recruit')
-        params = {
-            'form': form,
-            'id': pk,
-        }
-
-    elif request.POST.get('delete'):
-        form = RecruitForm(request.POST, instance=obj)
-        if form.is_valid():
-            form.delete()
-            return redirect(to='/system/recruit')
-        params = {
-            'form': form,
-            'id': pk,
-        }
-    else:
-        form = RecruitForm(request.POST, instance=obj)
-        params = {
-            'form': form
-        }
+    
+    params = {
+        'form': RecruitForm(instance=obj),
+        'id': pk,
+    }
 
     return render(request, 'system/recruit_edit.html', params)
 
-
+# 採用ページの削除
+@login_required
+def recruit_delete(request, pk):
+    obj = Recruit.objects.get(id=pk,)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect(to='/system/recruit')
+    
+    params = {
+        'obj': obj,
+        'id': pk,
+    }
+    return render(request, 'system/recruit_delete.html', params)
 

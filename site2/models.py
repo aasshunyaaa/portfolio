@@ -28,7 +28,7 @@ class News(models.Model):
 class Recruit(models.Model):
     title = models.CharField('タイトル', max_length=100)
     discription = MDTextField(max_length=500, verbose_name='記事内容')
-    public_status = models.BooleanField('チェックで公開')
+    public_status = models.BooleanField('チェックで公開',)
     long_short = models.BooleanField('チェックで短期', default=False)
 
     def __str__(self):
