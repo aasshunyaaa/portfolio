@@ -1,9 +1,24 @@
 from django.shortcuts import render
+from .models import News, Category
 
 
-
+# TOPページ
 def index(request):
-    return render(request, 'site2/index.html')
+    obj = News.objects.all().order_by('-data')[0:10]
+    params = {
+        'obj': obj,   
+    }
+    return render(request, 'site2/index.html', params)
+
+# 新着情報詳細
+def news_detail(request, pk):
+    obj = News.objects.get(id=pk)
+    params = {
+        'obj': obj,
+    }
+    return render(request, 'site2/news_detail.html', params)
+
+
 
 def c1(request):
     return render(request, 'site2/c1.html')

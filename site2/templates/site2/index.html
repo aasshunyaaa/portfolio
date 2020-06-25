@@ -19,20 +19,10 @@
 <section id="new">
 <h2>更新情報・お知らせ</h2>
 <dl>
-<dt>2018/07/20</dt>
-<dd>html,cssなど全面リニューアル。旧ファイルをご希望の方はお問い合わせ下さい。<span class="newicon">NEW</span></dd>
-<dt>2015/11/20</dt>
-<dd>biz32公開。</dd>
-<dt>20XX/00/00</dt>
-<dd>サンプルテキスト。サンプルテキスト。サンプルテキスト。</dd>
-<dt>20XX/00/00</dt>
-<dd>サンプルテキスト。サンプルテキスト。サンプルテキスト。</dd>
-<dt>20XX/00/00</dt>
-<dd>サンプルテキスト。サンプルテキスト。サンプルテキスト。</dd>
-<dt>20XX/00/00</dt>
-<dd>サンプルテキスト。サンプルテキスト。サンプルテキスト。</dd>
-<dt>20XX/00/00</dt>
-<dd>サンプルテキスト。サンプルテキスト。サンプルテキスト。</dd>
+{% for news in obj %}
+<dt>{{ news.data }}</dt>
+<dd>{{ news.title }}<a href="{% url 'site2:news_detail' news.id %}"><span class="newicon">{% for news in news.category.all %}{{ news }}{% endfor %}</span></dd>
+{% endfor %}
 </dl>
 <p class="r">&raquo;&nbsp;<a href="#">過去ログ</a></p>
 </section>

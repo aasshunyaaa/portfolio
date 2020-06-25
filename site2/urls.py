@@ -5,6 +5,7 @@ from . import views
 app_name = 'site2'
 urlpatterns = [
     path('', views.index, name='index'),
+    path('news/<int:pk>', views.news_detail, name='news_detail'),
     path('c1', views.c1, name='c1'),
     path('company', views.company, name='company'),
     path('confirm', views.confirm, name='confirm'),

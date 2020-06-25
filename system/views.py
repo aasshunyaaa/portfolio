@@ -49,7 +49,7 @@ def news(request):
     news_list = paginator_query(request, news, 3)
     params = {  
         'news': news_list.object_list,
-        'news_list': news_list,
+        'paginator_list': news_list,
     }
     return render(request, 'system/news.html', params)
 
@@ -112,10 +112,10 @@ def recruit(request):
     if q_title:
         obj = Recruit.objects.filter(Q(title__icontains=q_title))
     
-    recruit_list = paginator_query(request, obj, 5)
+    recruit_list = paginator_query(request, obj, 3)
     params = {
         'obj': recruit_list.object_list,
-        'recruit_list' :recruit_list,
+        'paginator_list' :recruit_list,
     }
 
     return render(request, 'system/recruit.html', params)

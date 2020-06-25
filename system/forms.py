@@ -19,7 +19,7 @@ class LoginForm(AuthenticationForm):
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = ('title', 'category', 'content',)
+        fields = ('title', 'category', 'content', 'public_status',)
         widgets = {
             'category' :forms.CheckboxSelectMultiple,
             

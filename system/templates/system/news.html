@@ -33,7 +33,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									{% for news in news_list %}
+									{% for news in paginator_list %}
 									<tr>
 										<td>{{ news.id }}</td>
 										<td>{{ news.title }}</td>
@@ -43,16 +43,11 @@
 											<button type="button" onclick="location.href='{% url 'system:news_edit' news.id %}'" class="btn btn-success">編集</button>
 											<button type="button" onclick="location.href='{% url 'system:news_delete' news.id %}'" class="btn btn-danger">削除</button>
 										</td>
-										<td>
-											<label class="fancy-radio">
-												<input name="publicchoice" value="public" type="radio">
-												<span><i></i>公開</span>
-											</label>
-											<label class="fancy-radio">
-												<input name="publicchoice" value="private" type="radio">
-												<span><i></i>非公開</span>
-											</label>	
-										</td>
+										{% if news.public_status %}
+										<td>公開</td>
+										{% else %}
+										<td>非公開</td>
+										{% endif %}
 										<td>{{ news.data }}</td>
 									</tr>
 									{% endfor %}
