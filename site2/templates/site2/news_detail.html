@@ -1,1 +1,30 @@
-{{ obj }}
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+	
+	
+<div id="contents" class="inner">
+
+<div id="main">
+
+<section>
+<h2>{{ obj.title }}</h2>
+<p>{{ obj.data }}</p>
+
+<table class="ta1">
+<tr>
+<th colspan="2" class="tamidashi">{% for obj in obj.category.all %}{{ obj }}{% endfor %}</th>
+</tr>
+<tr>
+<th>記事内容</a></th>
+<td>{{ obj.content }}</td>
+</tr>
+</table>
+</section>
+
+</div>
+
+{% endblock body %}
+

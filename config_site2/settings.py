@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'system.apps.SystemConfig',
     'django_summernote',
     'mdeditor',
+    
 
 ]
 

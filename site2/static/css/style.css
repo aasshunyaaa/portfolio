@@ -485,12 +485,12 @@ footer .pr {display: block;font-size: 80%;}
 /*テーブル１行目に入った見出し部分*/
 .ta1 th.tamidashi {
 	width: auto;
-	text-align: left;	/*左よせ*/
+	text-align: center;	/*左よせ*/
 	background: #222;	/*背景色*/
 }
 /*ta1の左側ボックス*/
 .ta1 th {
-	width: 140px;	/*幅*/
+	width: 155px;	/*幅*/
 	text-align: center;	/*センタリング*/
 	font-weight: normal;
 }

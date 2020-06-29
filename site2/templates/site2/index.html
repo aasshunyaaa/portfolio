@@ -21,10 +21,10 @@
 <dl>
 {% for news in obj %}
 <dt>{{ news.data }}</dt>
-<dd>{{ news.title }}<a href="{% url 'site2:news_detail' news.id %}"><span class="newicon">{% for news in news.category.all %}{{ news }}{% endfor %}</span></dd>
+<dd><a href="{% url 'site2:news_detail' news.id %}">{{ news.title }}<span class="newicon">{% for news in news.category.all %}{{ news }}{% endfor %}</span></dd>
 {% endfor %}
 </dl>
-<p class="r">&raquo;&nbsp;<a href="#">過去ログ</a></p>
+<p class="r">&raquo;&nbsp;<a href="{% url 'site2:news_list' %}">新着情報一覧</a></p>
 </section>
 
 <section>
