@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import News, Category
 from system.views import paginator_query
+from django.views import generic
 
 
 # TOPページ
@@ -13,19 +14,7 @@ def index(request):
     return render(request, 'site2/index.html', params)
 
 
-# 新着情報一覧
-def news_list(request):
-    obj = News.objects.all()
-    news_list = paginator_query(request, obj, 3)
 
-    params = {
-        'obj': news_list,
-        'paginator_list': news_list,
-        'title': '新着情報一覧',
-        'daytime': '2019',
-    }
-
-    return render(request, 'site2/news_list.html', params)
 
 
 
@@ -39,6 +28,25 @@ def news_detail(request, pk):
     }
     return render(request, 'site2/news_detail.html', params)
 
+# 新着情報アーカイブ
+class NewsArchive(generic.ArchiveIndexView):
+    model = News
+    date_field = 'data'
+    allow_empty = True
+
+    # 新着情報一覧
+def news_list(request):
+    obj = News.objects.all()
+    news_list = paginator_query(request, obj, 10)
+
+    params = {
+        'obj': news_list,
+        'paginator_list': news_list,
+        'title': '新着情報一覧',
+        'daytime': '2019',
+    }
+
+    return render(request, 'site2/news_list.html', params)
 
 
 def c1(request):
