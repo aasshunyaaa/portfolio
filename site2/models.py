@@ -1,5 +1,6 @@
 from django.db import models
 from mdeditor.fields import MDTextField
+from django.utils import timezone
 
 
 # 新着情報
@@ -14,12 +15,19 @@ PUBLIC_CHOICES = [
     ('0', '非公開'),
 ]
 
+class NewsQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(data__lte=timezone.now())
+
+
 class News(models.Model):
     title = models.CharField(max_length=100, verbose_name='タイトル') 
     category = models.ManyToManyField(Category, verbose_name='カテゴリー')
     content = MDTextField(max_length=500, verbose_name='記事内容')
     public_status = models.BooleanField(verbose_name='公開')
     data = models.DateTimeField(auto_now_add=True, verbose_name='投稿日')
+
+    objects = NewsQuerySet.as_manager()
 
     def __str__(self):
         return self.title

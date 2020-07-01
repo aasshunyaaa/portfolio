@@ -40,13 +40,13 @@ def paginator_query(request, queryset, count):
 # 新着情報の一覧
 @login_required
 def news(request):
-    news = News.objects.all()
+    news = News.objects.all().order_by('-data')
      # 検索機能の処理関数
     q_title = request.GET.get('get_title')
     if q_title:
         news = News.objects.filter(Q(title__icontains=q_title))
 
-    news_list = paginator_query(request, news, 3)
+    news_list = paginator_query(request, news, 6)
     params = {  
         'news': news_list.object_list,
         'paginator_list': news_list,

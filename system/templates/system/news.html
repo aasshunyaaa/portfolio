@@ -23,7 +23,6 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<th>ID</th>
 										<th>タイトル</th>
 										<th>カテゴリー</th>
 										<th>記事内容</th>
@@ -35,7 +34,6 @@
 								<tbody>
 									{% for news in paginator_list %}
 									<tr>
-										<td>{{ news.id }}</td>
 										<td>{{ news.title }}</td>
 										<td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
 										<td>{{ news.content|truncatechars:10 }}</td>
