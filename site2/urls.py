@@ -9,6 +9,9 @@ urlpatterns = [
     path('archive/<int:year>', views.DiaryYearList.as_view(), name='year'),
     path('archive/<int:year>/<int:month>/', views.DiaryMonthList.as_view(), name='month'),
     path('news/<int:pk>', views.news_detail, name='news_detail'),
+    # 下記カテゴリによる絞り込みのURL
+    path('category/<int:pk>', views.DiaryCategoryList.as_view(), name='category'),
+
     path('c1', views.c1, name='c1'),
     path('company', views.company, name='company'),
     path('confirm', views.confirm, name='confirm'),

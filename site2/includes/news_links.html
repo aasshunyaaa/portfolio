@@ -1,0 +1,10 @@
+{% load static %}
+<nav class="box1">
+  <h2>カテゴリ別</h2>
+  <ul class="submenu">
+    {% for category in category_list %}
+        <li><a href="{% url 'site2:category' category.pk %}">{{ category }}</a></li>
+     {% endfor %}
+  </ul>
+</nav>
+ 

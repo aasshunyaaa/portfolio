@@ -1,96 +1,21 @@
 {% regroup dates by year as dates_by_year %}
 {% load static %}
+{% load site2_news_tags %}
 
 <div id="sub">
   <nav class="box1">
   <h2>年別アーカイブ</h2>
   {% for month in dates_by_year %}
-  <ul class="submenu">
-  <li><a href="{% url 'site2:year' month.grouper %}">{{ month.grouper }}年</a></li>
-    <ul>
-        {% for d in month.list %}
-            <li><a href="{% url 'site2:month' month.grouper d.month %}">{{ d|date:'F' }}</a></li>
-        {% endfor %}
+    <ul class="submenu">
+      <li><a href="#">{{ month.grouper }}年</a></li>
+        <ul>
+          {% for d in month.list %}
+            <li><a href="#">{{ d|date:'F' }}</a></li>
+          {% endfor %}
+        </ul>
     </ul>
-  </ul>
   {% endfor %}
   </nav>
-  <nav class="box1">
-  <h2>カテゴリ別</h2>
-  <ul class="submenu">
-  <li><a href="#">かきくけこ</a></li>
-  <li><a href="#">メニューサンプル</a></li>
-  <li><a href="#">メニューサンプル</a></li>
-  <li><a href="#">メニューサンプル</a></li>
-  <li><a href="#">メニューサンプル</a></li>
-  </ul>
-  </nav>
-  <section class="box">
-  
-  <h2>製品情報</h2>
-  
-  <div class="list">
-  <a href="item.html">
-  <figure><img src="{% static 'images/sample1.jpg' %}" alt="写真の説明"></figure>
-  <h4>製品タイトル<span class="newicon">NEW</span></h4>
-  <p>サンプルテキスト。サンプルテキスト。</p>
-  </a>
-  </div>
-  
-  <div class="list">
-  <a href="item.html">
-  <figure><img src="{% static 'images/sample1.jpg' %}" alt="写真の説明"></figure>
-  <h4>製品タイトル</h4>
-  <p>サンプルテキスト。サンプルテキスト。</p>
-  </a>
-  </div>
-  
-  <div class="list">
-  <a href="item.html">
-  <figure><img src="{% static 'images/sample1.jpg' %}" alt="写真の説明"></figure>
-  <h4>製品タイトル</h4>
-  <p>サンプルテキスト。サンプルテキスト。</p>
-  </a>
-  </div>
-  
-  </section>
-  
-  <section class="box1">
-  
-  <h2>製品情報</h2>
-  
-  <div class="list">
-  <a href="item.html">
-  <figure><img src="{% static 'images/sample1.jpg' %}" alt="写真の説明"></figure>
-  <h4>製品タイトル<span class="newicon">NEW</span></h4>
-  <p>サンプルテキスト。サンプルテキスト。</p>
-  </a>
-  </div>
-  
-  <div class="list">
-  <a href="item.html">
-  <figure><img src="{% static 'images/sample1.jpg' %}" alt="写真の説明"></figure>
-  <h4>製品タイトル</h4>
-  <p>サンプルテキスト。サンプルテキスト。</p>
-  </a>
-  </div>
-  
-  <div class="list">
-  <a href="item.html">
-  <figure><img src="{% static 'images/sample1.jpg' %}" alt="写真の説明"></figure>
-  <h4>製品タイトル</h4>
-  <p>サンプルテキスト。サンプルテキスト。</p>
-  </a>
-  </div>
-  
-  </section>
-  
-  <div class="box1">
-  <h2 class="mb15">アクセス</h2>
-  <p>東京都XX区XXXXビル３F<br>
-  TEL：03-0000-0000<br>
-  受付：9:00～16:00<br>
-  定休日：土日祝</p>
-  </div>
+  {% render_news_category %}
   
   </div>

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load site2_tags %}
+{% load static %}
+{% block body %}	
+<div id="contents" class="inner">
+    <div id="main">
+        <section>
+        <h2>新着情報{{ daytime }}年</h2>
+            <table class="ta1">
+                <tr>
+                    <th colspan="1" class="tamidashi">投稿日</th>
+                    <th colspan="1" class="tamidashi">カテゴリー</th>
+                    <th colspan="2" class="tamidashi">タイトル</th>
+                </tr>
+                {% for news in obj %}
+                <tr>
+                    <th>{{ news.data }}</th>
+                    <th><a href="{% url 'site2:news_detail' news.id %}">{% for news in news.category.all %}{{ news }}{% endfor %}</a></th>
+                    <td><a href="{% url 'site2:news_detail' news.id %}">{{ news.title }}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% include 'includes/paginator.html' %}
+        </section>
+    </div>
+
+{% render_month_links %}
+
+{% endblock body %}
+

@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import News, Category
 from system.views import paginator_query
-from django.views.generic import ArchiveListMixin
+from django.shortcuts import get_object_or_404
+from django.views import generic
+
 
 
 # TOPページ
@@ -28,6 +30,14 @@ def news_list(request):
 
     return render(request, 'site2/news_list.html', params)
 
+class ArchiveListMixin:
+    model = News
+    date_field = 'data'
+    allow_empty = True
+    make_object_list = True
+    template_name = 'site2/archive_category.html'
+
+
 
 # 年別アーカイブ
 class DiaryYearList(ArchiveListMixin, generic.YearArchiveView):
@@ -51,6 +61,24 @@ class DiaryMonthList(ArchiveListMixin, generic.MonthArchiveView):
         context = super().get_context_data(**kwargs)
         context['heading'] = '{}年{}月の記事'.format(self.kwargs['year'], self.kwargs['month'])
         return context
+
+
+# 新着カテゴリ別ソート機能
+class DiaryCategoryList(ArchiveListMixin, generic.ArchiveIndexView):
+
+    def get_queryset(self):
+        self.category = category = get_object_or_404(Category, pk=self.kwargs['pk'])
+        return super().get_queryset().filter(category=category).select_related('category')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['obj'] = News.objects.filter()
+        return context
+    
+
+
+
+
 
 # 新着情報詳細
 def news_detail(request, pk):

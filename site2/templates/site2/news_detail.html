@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
+{% load site2_tags %}
 {% load static %}
-
-
 {% block body %}
 	
 	
@@ -25,6 +24,7 @@
 </section>
 
 </div>
+{% render_month_links %}
 
 {% endblock body %}
 
