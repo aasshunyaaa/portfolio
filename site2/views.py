@@ -39,19 +39,26 @@ class ArchiveListMixin:
 
 
 
+
+
+
 # 年別アーカイブ
-class DiaryYearList(ArchiveListMixin, generic.YearArchiveView):
+def news_year_list(request, year):
+
+
+    return render()
+# class DiaryYearList(ArchiveListMixin, generic.YearArchiveView):
 
     def get_queryset(self):
         return super().get_queryset().select_related('category')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = '{}年の記事'.format(self.kwargs['year'])
+        
         return context
 
 # 月別アーカイブ
-class DiaryMonthList(ArchiveListMixin, generic.MonthArchiveView):
+# class DiaryMonthList(ArchiveListMixin, generic.MonthArchiveView):
     month_format = '%m'
 
     def get_queryset(self):
@@ -59,25 +66,16 @@ class DiaryMonthList(ArchiveListMixin, generic.MonthArchiveView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['heading'] = '{}年{}月の記事'.format(self.kwargs['year'], self.kwargs['month'])
         return context
 
 
 # 新着カテゴリ別ソート機能
-class DiaryCategoryList(ArchiveListMixin, generic.ArchiveIndexView):
-
-    def get_queryset(self):
-        self.category = category = get_object_or_404(Category, pk=self.kwargs['pk'])
-        return super().get_queryset().filter(category=category).select_related('category')
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['obj'] = News.objects.filter()
-        return context
-    
-
-
-
+def news_category_list(request, pk):
+    obj = News.objects.filter(category=pk).order_by('-data')
+    params = {
+        'obj': obj,
+    }
+    return render(request, 'site2/archive_category.html', params)
 
 
 # 新着情報詳細

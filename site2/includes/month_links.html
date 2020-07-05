@@ -7,10 +7,10 @@
   <h2>年別アーカイブ</h2>
   {% for month in dates_by_year %}
     <ul class="submenu">
-      <li><a href="#">{{ month.grouper }}年</a></li>
+      <li><a href="{% url 'site2:year' month.grouper %}">{{ month.grouper }}年</a></li>
         <ul>
           {% for d in month.list %}
-            <li><a href="#">{{ d|date:'F' }}</a></li>
+            <li><a href="{% url 'site2:month' month.grouper d.month %}">{{ d|date:'F' }}</a></li>
           {% endfor %}
         </ul>
     </ul>
