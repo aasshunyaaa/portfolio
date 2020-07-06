@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+	
+	
+<div id="contents" class="inner">
+<div id="main">
+    <section>
+        <h2>{{ title }}採用情報</h2>
+        <table class="ta1">
+
+            <tr>
+                <th colspan="1" class="tamidashi">更新日</th>
+                <th colspan="1" class="tamidashi">タイトル</th>
+                <th colspan="1" class="tamidashi">詳細</th>
+            </tr>
+            {% for recruit in obj_recruit %}
+            <tr>
+                <th>{{ recruit.data }}</th>
+                <th>{{ recruit.title }}</th>
+                <td>{{ recruit.discription|truncatechars:30 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </section>
+</div>
+{% include 'base_sideber/recruit_sideber.html' %}
+
+
+{% endblock body %}
+

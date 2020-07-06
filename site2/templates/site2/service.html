@@ -60,36 +60,9 @@
 <span class="option1">おすすめ</span>
 </a>
 </div>
-
-<div class="list option2">
-<h4>製品タイトル</h4>
-<figure><img src="{% static 'images/sample1.jpg' %}" alt=""></figure>
-<table>
-<tr>
-<th>メーカー</th>
-<td>サンプルテキスト。</td>
-<th>価格</th>
-<td>XXXX円</td>
-</tr>
-<tr>
-<th>見出し</th>
-<td>サンプルテキスト。</td>
-<th>見出し</th>
-<td>サンプルテキスト。</td>
-</tr>
-</table>
-<p>右上の「ご契約済」の文字情報はhtml側で直接変更できます。
-<span class="option2">ご契約済</span><br>
-<span style="color:red">&lt;span class=&quot;option2&quot;&gt;ご契約済&lt;/span&gt;</span><br>
-色はcssフォルダのstyle.cssの設定で変更できます。<br>
-また、画像を半透明にするには、<br>
-&lt;div class=&quot;list <span style="color:red">option2</span>&quot;&gt;<br>
-として下さい。</p>
-<span class="option2">ご契約済</span>
-</div>
-
 </section>
 
 </div>
+{% include 'base_sideber/base_sideber.html' %}
 
 {% endblock body %}

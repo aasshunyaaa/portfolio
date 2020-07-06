@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import News, Category
+from .models import News, Category, Recruit
 from system.views import paginator_query
 from django.shortcuts import get_object_or_404
 from django.views import generic
@@ -44,36 +44,42 @@ class ArchiveListMixin:
 
 # 年別アーカイブ
 def news_year_list(request, year):
+    obj = News.objects.filter(data__year=year).order_by('-data')
+    obj_list = paginator_query(request, obj, 6)
+    daytime = '{}年の記事'.format(year)
 
+    params = {
+        'obj': obj_list.object_list,
+        'daytime': daytime,
+        'paginator_list' :obj_list
+    }
+    return render(request, 'site2/archive_category.html', params)
 
-    return render()
-# class DiaryYearList(ArchiveListMixin, generic.YearArchiveView):
-
-    def get_queryset(self):
-        return super().get_queryset().select_related('category')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        return context
 
 # 月別アーカイブ
-# class DiaryMonthList(ArchiveListMixin, generic.MonthArchiveView):
-    month_format = '%m'
+def news_month_list(request, year, month):
+    obj = News.objects.filter(data__month=month).order_by('-data')
+    daytime = '{}年{}月の記事'.format(year, month)
+    obj_list = paginator_query(request, obj, 6)
+    params = {
+        'obj': obj_list.object_list,
+        'daytime': daytime,
+        'paginator_list': obj_list,
+    }
 
-    def get_queryset(self):
-        return super().get_queryset().select_related('category')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+    return render(request, 'site2/archive_category.html', params)
 
 
 # 新着カテゴリ別ソート機能
 def news_category_list(request, pk):
     obj = News.objects.filter(category=pk).order_by('-data')
+    category_name = Category.objects.get(id=pk)
+    obj_list = paginator_query(request, obj, 6)
+    daytime = '【{}】の記事一覧'.format(category_name)
     params = {
-        'obj': obj,
+        'obj': obj_list.object_list,
+        'daytime': daytime,
+        'paginator_list': obj_list,
     }
     return render(request, 'site2/archive_category.html', params)
 
@@ -115,8 +121,40 @@ def item(request):
 def link(request):
     return render(request, 'site2/link.html')
 
+
+# 採用ページ関数
 def recruit(request):
-    return render(request, 'site2/recruit.html')
+    obj_short = Recruit.objects.filter(long_short=True, public_status=True)[:5]
+    obj_long = Recruit.objects.filter(long_short=False, public_status=True)[:5]
+    params = {
+        'obj_short': obj_short,
+        'obj_long': obj_long,
+        
+    }
+    return render(request, 'site2/recruit.html', params)
+
+# 採用ページ長期アーカイブ
+def recruit_archive_long(request):
+    obj_recruit = Recruit.objects.filter(long_short=False)
+
+    params = {
+        'title': '長期',
+        'obj_recruit': obj_recruit,
+    }
+
+    return render(request, 'site2/archive_recruit.html', params)
+
+# 採用ページ短期アーカイブ
+def recruit_archive_short(request):
+    obj_recruit = Recruit.objects.filter(long_short=True)
+
+    params = {
+        'title': '短期',
+        'obj_recruit': obj_recruit,
+    }
+
+    return render(request, 'site2/archive_recruit.html', params)
+
 
 def service(request):
     return render(request, 'site2/service.html')

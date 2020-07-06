@@ -36,7 +36,7 @@
 									<tr>
 										<td>{{ news.title }}</td>
 										<td>{% for ctg in news.category.all %}{{ ctg }}{% endfor %}</td>
-										<td>{{ news.content|truncatechars:10 }}</td>
+										<td>{{ news.content|truncatechars:10|safe }}</td>
 										<td>
 											<button type="button" onclick="location.href='{% url 'system:news_edit' news.id %}'" class="btn btn-success">編集</button>
 											<button type="button" onclick="location.href='{% url 'system:news_delete' news.id %}'" class="btn btn-danger">削除</button>

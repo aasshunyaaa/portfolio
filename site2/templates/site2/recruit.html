@@ -6,76 +6,54 @@
 	
 	
 <div id="contents" class="inner">
-
 <div id="main">
-
 <section>
-
 <h2>採用情報</h2>
-
+<span>最新5件を表示しています</span>
 <table class="ta1">
 <tr>
-<th colspan="2" class="tamidashi">正社員募集</th>
+<h3>短期募集</h3>
 </tr>
 <tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
+    <th colspan="1" class="tamidashi">更新日</th>
+    <th colspan="1" class="tamidashi">タイトル</th>
+    <th colspan="1" class="tamidashi">詳細</th>
+  
 </tr>
+{% for short in obj_short %}
 <tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
+<th>{{ short.data }}</th>
+<th>{{ short.title }}</th>
+<td>{{ short.discription|truncatechars:30 }}</td>
 </tr>
-<tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
-</tr>
-<tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
-</tr>
-<tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
-</tr>
-<tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
-</tr>
+{% endfor %}
 </table>
 
 <table class="ta1">
 <tr>
-<th colspan="2" class="tamidashi">短期スタッフ募集</th>
+<br>
+<h3>長期募集</h3>
 </tr>
 <tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
+    <th colspan="1" class="tamidashi">更新日</th>
+    <th colspan="1" class="tamidashi">タイトル</th>
+    <th colspan="1" class="tamidashi">詳細</th>
+  
 </tr>
+{% for long in obj_long %}
 <tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
+<th>{{ long.data }}</th>
+<th>{{ long.title }}</th>
+<td>{{ long.discription|truncatechars:30 }}</td>
 </tr>
-<tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
-</tr>
-<tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
-</tr>
-<tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
-</tr>
-<tr>
-<th>見出し</th>
-<td>ここに説明など入れて下さい。サンプルテキスト。</td>
-</tr>
+{% endfor %}
 </table>
 
 </section>
 
 </div>
+{% include 'base_sideber/recruit_sideber.html' %}
+
 
 {% endblock body %}
 
